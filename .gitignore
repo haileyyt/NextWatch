@@ -1,28 +1,16 @@
-# Operating system files
 .DS_Store
-Thumbs.db
-
-# Python
 __pycache__/
 *.py[cod]
 .venv/
 venv/
 .pytest_cache/
-.coverage
-htmlcov/
-
-# Local secrets
 .env
 .env.*
 !.env.example
 .streamlit/secrets.toml
-
-# Private or locally generated data
 data/private/
 data/raw/
 data/processed/
-
-# Common viewing-history export filenames
 *ViewingHistory*.csv
 *watch-history*.json
 *watch-history*.html
