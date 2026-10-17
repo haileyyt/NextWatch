@@ -1,0 +1,121 @@
+{
+  "genre": {
+    "status": "ok",
+    "message": "Scores are ranking signals, not liking probabilities.",
+    "method": "genre",
+    "effective_genre_weight": 1.0,
+    "results": [
+      {
+        "show_id": "demo_009",
+        "title": "Harbor Frequency",
+        "score": 1.0,
+        "genre_score": 1.0,
+        "text_score": 0.0,
+        "reasons": [
+          "Shared preferred/liked-show genres: mystery, science-fiction"
+        ]
+      },
+      {
+        "show_id": "demo_004",
+        "title": "Quiet Evidence",
+        "score": 0.3333333333333333,
+        "genre_score": 0.3333333333333333,
+        "text_score": 0.0,
+        "reasons": [
+          "Shared preferred/liked-show genres: mystery"
+        ]
+      },
+      {
+        "show_id": "demo_006",
+        "title": "Orbit Nine",
+        "score": 0.3333333333333333,
+        "genre_score": 0.3333333333333333,
+        "text_score": 0.0,
+        "reasons": [
+          "Shared preferred/liked-show genres: science-fiction"
+        ]
+      },
+      {
+        "show_id": "demo_010",
+        "title": "Letters from the Coast",
+        "score": 0.3333333333333333,
+        "genre_score": 0.3333333333333333,
+        "text_score": 0.0,
+        "reasons": [
+          "Shared preferred/liked-show genres: mystery"
+        ]
+      },
+      {
+        "show_id": "demo_012",
+        "title": "Far Station",
+        "score": 0.3333333333333333,
+        "genre_score": 0.3333333333333333,
+        "text_score": 0.0,
+        "reasons": [
+          "Shared preferred/liked-show genres: science-fiction"
+        ]
+      }
+    ]
+  },
+  "hybrid": {
+    "status": "ok",
+    "message": "Scores are ranking signals, not liking probabilities.",
+    "method": "hybrid",
+    "effective_genre_weight": 0.5,
+    "results": [
+      {
+        "show_id": "demo_009",
+        "title": "Harbor Frequency",
+        "score": 0.6694818955263818,
+        "genre_score": 1.0,
+        "text_score": 0.3389637910527636,
+        "reasons": [
+          "Shared preferred/liked-show genres: mystery, science-fiction",
+          "Shared description terms with liked shows: events, radio, coastal"
+        ]
+      },
+      {
+        "show_id": "demo_010",
+        "title": "Letters from the Coast",
+        "score": 0.3148352971752952,
+        "genre_score": 0.3333333333333333,
+        "text_score": 0.29633726101725705,
+        "reasons": [
+          "Shared preferred/liked-show genres: mystery",
+          "Shared description terms with liked shows: town, coastal, investigates"
+        ]
+      },
+      {
+        "show_id": "demo_012",
+        "title": "Far Station",
+        "score": 0.269131023457012,
+        "genre_score": 0.3333333333333333,
+        "text_score": 0.2049287135806907,
+        "reasons": [
+          "Shared preferred/liked-show genres: science-fiction",
+          "Shared description terms with liked shows: broadcasts, engineer"
+        ]
+      },
+      {
+        "show_id": "demo_004",
+        "title": "Quiet Evidence",
+        "score": 0.16666666666666666,
+        "genre_score": 0.3333333333333333,
+        "text_score": 0.0,
+        "reasons": [
+          "Shared preferred/liked-show genres: mystery"
+        ]
+      },
+      {
+        "show_id": "demo_006",
+        "title": "Orbit Nine",
+        "score": 0.16666666666666666,
+        "genre_score": 0.3333333333333333,
+        "text_score": 0.0,
+        "reasons": [
+          "Shared preferred/liked-show genres: science-fiction"
+        ]
+      }
+    ]
+  }
+}
