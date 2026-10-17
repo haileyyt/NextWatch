@@ -1,72 +1,73 @@
 # NextWatch
 
-An open-source recommendation project designed to help users discover their next favorite show.
+A local show-recommendation prototype exploring genres and liked-show descriptions.
 
-## About the project
+## Cycle 2 status
 
-Choosing what to watch can take longer than expected, even when there are plenty of options. NextWatch will explore how genre preferences, explicit likes and dislikes, and viewing behavior can help generate more personalized show recommendations.
+The project now has a runnable Python demo, a genre baseline, a TF-IDF hybrid ranker, explanations, and 16 passing tests. The included catalog contains 12 fictional shows, not real Netflix titles. Streaming availability is not implemented.
 
-The initial use case is helping users discover shows to watch on Netflix. The long-term goal is to pair a recommendation engine with a clean, intuitive interface that makes finding something new simple and enjoyable.
+This is a Cline Campus Ambassador project. This update was prepared with ChatGPT/Codex; Cline-specific work will be documented separately after it occurs.
 
-I am developing this project as part of the Cline Campus Ambassador Program at Carnegie Mellon University and plan to use Cline throughout the development process.
+## Run locally
 
-## Current status
+Use Python 3.11 or newer (tested here with Python 3.12). From the repository root:
 
-NextWatch is currently in the planning stage. This repository documents the initial scope, proposed technical approach, and development roadmap.
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python demo.py --method genre
+python demo.py --method hybrid
+python -m unittest discover -s tests -v
+python compare.py
+```
 
-A working application, recommendation model, and streaming-service integrations have not been implemented yet.
+Edit `data/demo_preferences.json` to change your inputs. Choose IDs and genres from `data/demo_catalog.json`.
 
-## Planned features
+```bash
+python demo.py --preferences data/demo_preferences.json --top-k 3 --genre-weight 0.7
+```
 
-### Initial version
+`--genre-weight` applies to hybrid mode when liked-show text is available. No liked-show text means genre-only fallback. Scores are ranking signals, not probabilities. Positive-score candidates only are returned, so a list can contain fewer than the requested number.
 
-- Collect favorite genres and explicitly liked or disliked shows.
-- Generate a short, personalized list of show recommendations.
-- Exclude explicitly disliked and already-watched titles from discovery results.
-- Provide brief explanations of why each show was recommended.
-- Present results through a simple interface.
+## What works
 
-### Future experiments
+- Favorite genres and liked titles form a positive profile.
+- Explicit dislikes, watched titles, and liked seed titles are excluded.
+- Genre ranking uses Jaccard overlap.
+- Hybrid ranking uses an adjustable blend of genre overlap and description cosine similarity.
+- Explanations show actual shared genres and contributing words.
+- Empty input, invalid IDs, conflicting ratings, and no matches are handled explicitly.
 
-- Explore whether self-reported rewatch preferences improve recommendations.
-- Allow users to provide feedback on suggested shows.
-- Investigate optional imports of user-provided viewing history.
-- Explore whether voluntarily shared YouTube interests provide useful additional signals.
+Dislikes do not penalize an entire genre. Rewatch counts and history imports are not supported. Unsupported preference fields are rejected rather than silently ignored.
 
-YouTube integration is a stretch goal and will not be required to use the initial version.
+## Files
 
-## Proposed technical approach
+| File | Purpose |
+| --- | --- |
+| `demo.py` | Command-line entry point |
+| `compare.py` | Regenerates sample comparison artifacts |
+| `nextwatch/recommender.py` | Validation, feature extraction, filtering, ranking |
+| `tests/test_recommender.py` | 16 behavior tests |
+| `data/demo_catalog.json` | 12 original fictional shows |
+| `data/demo_preferences.json` | Synthetic preferences accepted by the demo |
+| `reports/cycle-2-comparison.md` | Reproducible ranking comparison |
+| `docs/cycle-2-progress.md` | Implemented work, limitations, and provenance |
+| `docs/project-plan.md` | Roadmap |
 
-The first prototype will use Python, with a simple interface tentatively built using Streamlit.
+The Cycle 1 `sample_shows.csv` and `sample_preferences.json` are historical schema sketches. Use the new `demo_*.json` files with the executable prototype; rewatch fields from the earlier sketch are not implemented.
 
-Development will begin with a genre-based recommendation baseline. I then plan to explore TF-IDF representations of show descriptions and cosine similarity to identify relevant titles.
+## Next
 
-More complex methods will be considered after evaluating the initial approach. The technical stack and feature set may change as the project develops.
+Select a suitable real catalog, add a small UI, and evaluate with explicitly collected relevance judgments. A ranking change on synthetic data is not evidence of improved recommendation quality.
 
-## Data and privacy
+## Data and license
 
-The initial version will use manually entered preferences and a small catalog with documented sources and reuse permissions.
+Fictional test records are original project material covered by the MIT license. No real viewing histories or credentials are required. Keep private data out of commits and AI prompts. Third-party datasets will need separately documented permissions. Independent of Netflix and YouTube; no affiliation with either service.
 
-The project will not require users to provide Netflix or YouTube login credentials. Personal viewing histories, API keys, and other private information should never be committed to this repository.
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [LICENSE](LICENSE).
 
-Any future history-import feature will require a separate review of supported formats, user consent, and data handling.
+## Technical references
 
-Netflix availability has not been verified. Future availability information should identify the relevant region and verification date.
-
-## Development roadmap
-
-See [docs/project-plan.md](docs/project-plan.md) for the planned milestones and scope.
-
-## Contributing
-
-Feedback on recommendation signals, interface design, evaluation, and suitable data sources is welcome.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
-
-## License
-
-Original project code and documentation are available under the [MIT License](LICENSE). Third-party datasets and assets remain subject to their own licenses.
-
-## Disclaimer
-
-NextWatch is an independent student project and is not affiliated with Netflix or YouTube.
+- https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html
+- https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.cosine_similarity.html
