@@ -1,159 +1,64 @@
-# NextWatch Project Plan
+# Project plan
 
-## Goal
+Cycle 2 implementation status: see [cycle-2-progress.md](cycle-2-progress.md). The CLI baseline and hybrid now exist; a real catalog and UI remain pending. The file paths below were the initial proposal; current executable modules are listed in README.md.
 
-Build a small, understandable recommendation platform that helps users discover shows based on preferences they choose to share.
+## Product goal
 
-The first version should demonstrate a complete flow from entering preferences to receiving a useful shortlist of recommendations.
+Help someone identify a few shows they want to try using preferences they explicitly choose to share. Success means a useful, understandable shortlist, not a claim to outperform Netflix.
 
-## Initial user flow
+## MVP scope
 
-1. Select favorite genres.
-2. Identify shows the user likes, dislikes, or has already watched.
-3. Request recommendations.
-4. View up to five eligible suggestions with brief explanations.
-5. Optionally provide feedback on the results.
+1. A small catalog with documented source and reuse terms.
+2. Manual genre, like, dislike, and watched-title inputs.
+3. Five ranked suggestions, or fewer when fewer eligible candidates exist.
+4. Explanations tied to real genre or text-feature overlap.
+5. A simple local interface and optional feedback.
 
-## Minimum viable product
+No account system, cloud database, automatic history tracking, or YouTube import is required for the MVP. Use fictional sample data until a suitable catalog source is selected. Label the UI as a demo until real show data is available. Do not label a title as currently on Netflix without region-specific, dated availability evidence.
 
-The first working version will include:
+## Proposed implementation files, to add when needed
 
-- A small show catalog with documented sources and reuse permissions.
-- Manual preference inputs.
-- A basic recommendation method.
-- Filtering for explicitly disliked and already-watched titles.
-- Explanations grounded in actual matching features.
-- A simple local interface.
-
-Account connections, automatic viewing-history collection, and YouTube integration are outside the initial scope.
-
-## Recommendation approach
-
-### Step 1: Genre baseline
-
-Start with a transparent ranking method based on overlap between user preferences and show genres.
-
-This provides an understandable baseline for comparing later approaches.
-
-### Step 2: Description similarity
-
-Explore TF-IDF features from show descriptions and cosine similarity.
-
-Use descriptions of liked shows to help identify similar candidates. Evaluate whether these suggestions are more useful than the genre baseline.
-
-### Step 3: Additional preference signals
-
-Experiment with the influence of dislikes and self-reported rewatch preferences.
-
-Unseen shows should remain distinct from disliked shows. Rewatch influence should be limited so a single favorite does not dominate every recommendation.
-
-## Important behaviors to handle
-
-- Ask for preferences when a user has not supplied any.
-- Resolve conflicting inputs, such as marking a show both liked and disliked.
-- Exclude already-watched and explicitly disliked titles.
-- Return fewer than five suggestions when too few eligible titles remain.
-- Handle unknown titles and missing catalog information.
-- Avoid presenting a similarity score as a probability that a user will like a show.
-
-## Data plan
-
-Begin with synthetic examples while selecting a suitable real show catalog.
-
-Before incorporating a dataset, document:
-
-- Source URL.
-- Retrieval date.
-- License or reuse terms.
-- Attribution requirements.
-- Whether redistribution is permitted.
-- Available metadata fields.
-
-Do not assume historical Netflix catalog membership establishes current availability.
-
-Personal viewing histories must remain outside the public repository.
-
-## Planned implementation files
-
-These files will be added when implementation begins:
-
-| File | Responsibility |
+| Future file | Responsibility |
 | --- | --- |
-| `app.py` | Preference inputs and recommendation interface |
-| `src/nextwatch/catalog.py` | Catalog loading and validation |
-| `src/nextwatch/features.py` | Genre and description features |
-| `src/nextwatch/recommender.py` | Candidate filtering and ranking |
-| `tests/test_recommender.py` | Meaningful checks for recommendation behavior |
-| `requirements.txt` | Dependencies verified with the prototype |
+| `app.py` | Streamlit preference form and result cards |
+| `src/nextwatch/catalog.py` | Load and validate catalog records |
+| `src/nextwatch/features.py` | Text and genre representations |
+| `src/nextwatch/recommender.py` | Rank eligible candidate shows |
+| `src/nextwatch/evaluation.py` | Baseline comparisons and ranking metrics |
+| `tests/test_recommender.py` | Ranking edge cases and exclusion behavior |
+| `requirements.txt` | Dependencies verified with the actual prototype |
 
-## Semester roadmap
+The initial proposed layout above has been simplified: the current ranking implementation is in `nextwatch/recommender.py`, with `demo.py` and `compare.py` at the root. UI and user-quality evaluation remain planned.
 
-### Cycle 1: September 21–October 4
+## Modeling plan
 
-- Define the project and initial scope.
-- Create the public repository.
-- Document the proposed approach.
-- Publish introductory content about the planned project.
+Begin with a transparent genre-overlap baseline. Next fit TF-IDF on catalog descriptions and compare show vectors using cosine similarity. Build a user profile from liked titles and selected genres. Explore a subtractive dislike signal for similar candidates, but also filter explicitly disliked titles out of results. Treat unreviewed titles as unknown, not disliked.
 
-### Cycle 2: October 5–18
+Rewatch influence is a later experiment. Ask users whether a repeat watch reflects an enduring favorite before giving it extra weight. Cap any bonus. A repeated series name in a viewing export may represent different episodes, not a rewatch.
 
-- Select suitable catalog data.
-- Implement the genre baseline.
-- Explore description similarity.
-- Check basic input and filtering behavior.
+For a cold-start user, ask for at least a genre or a liked title. If there is no input, invite the user to provide preferences instead of pretending the results are personalized. Handle empty catalogs, unknown IDs, conflicting like/dislike inputs, and fewer than five eligible titles explicitly.
 
-### Cycle 3: October 19–November 1
-
-- Build a simple interface.
-- Connect preference inputs to recommendation results.
-- Add explanations for suggested shows.
-
-### Cycle 4: November 2–15
-
-- Compare recommendation approaches.
-- Explore rewatch preferences.
-- Collect a small amount of voluntary feedback.
-- Improve usability and address weak recommendations.
-
-### Cycle 5: November 16–29
-
-- Fix remaining issues.
-- Finalize setup instructions and limitations.
-- Prepare a demonstration.
-- Explore optional YouTube signals only if the core application is stable.
-
-### Wrap-up: November 30–December 6
-
-- Prepare the final project report.
-- Summarize actual results and lessons learned.
-- Document possible future improvements.
-
-These are proposed development targets. Exact content submission deadlines will follow coordinator instructions.
-
-## Planned use of Cline
-
-Use Cline to discuss and implement focused tasks, including catalog structure, recommendation logic, interface components, and debugging.
-
-For each task:
-
-1. Define the goal and discuss the approach.
-2. Implement a small, reviewable change.
-3. Review the generated code.
-4. Check the relevant behavior.
-5. Record actual outcomes and remaining limitations.
-
-Public updates should distinguish planned features from completed work and describe only development experiences that actually occurred.
+This first model is content-based recommendation. A weighted scoring formula is a heuristic, and TF-IDF similarity is not a supervised model trained on Netflix users. Learned preference weights or collaborative filtering would require suitable data and evaluation and are outside the initial scope.
 
 ## Evaluation
 
-First verify that the application handles inputs and exclusions correctly.
+First validate input handling and exclusion rules. Next compare the genre baseline with text similarity using the same catalog and withheld explicit ratings. Do not use a held-out like as an input preference. Treat unlabelled recommendations as unknown; collect explicit relevance judgments on top-five lists before calculating precision@5. With incomplete judgments, report the coverage and avoid treating missing labels as negative.
 
-Then compare the genre baseline and description-based approach using the same catalog and explicitly collected relevance judgments. Keep evaluation preferences separate from the preferences used to generate recommendations.
+Report the number of users, rated items, and limitations alongside any metric. With synthetic profiles, report software behavior only, not real-world recommendation accuracy. Small volunteer feedback sessions can assess whether explanations make sense and whether users find a show they would try; ask permission before collecting or retaining feedback.
 
-Synthetic examples can demonstrate software behavior but cannot establish real-world recommendation quality.
+## Semester milestones
 
-## Definition of a finished first version
+| Cycle | Dates from onboarding packet | Proposed engineering outcome |
+| --- | --- | --- |
+| 1 | Sep 21-Oct 4 | Publish project scope and documentation scaffold; submit posts by Oct 3 at 11:59 p.m. per coordinator email |
+| 2 | Oct 5-18 | Choose usable catalog data, implement genre baseline and TF-IDF comparison |
+| 3 | Oct 19-Nov 1 | Connect a basic interface, likes/dislikes, exclusions, and explanations |
+| 4 | Nov 2-15 | Try rewatch weighting, evaluate baseline comparisons, improve usability |
+| 5 | Nov 16-29 | Fix issues, document setup and limitations, record a final demo; YouTube experiment only if core work is stable |
+| Wrap-up | Nov 30-Dec 6 | Prepare final report and summarize actual outcomes |
 
-A new user can follow the setup instructions, enter preferences, and receive eligible recommendations with understandable explanations.
+Each cycle also requires five Reddit posts, five matching X posts, and one Medium article. Future exact due dates should be confirmed from coordinator messages; the packet gives check-in weeks, not specific submission times.
 
-The repository documents its data sources, technical approach, and limitations. YouTube integration is not required for the first version to be complete.
+## Definition of a finished semester MVP
+
+A new user can follow setup instructions, enter preferences, receive eligible recommendations with grounded explanations, and understand data sources and limitations. The repository has a license, a reproducible example, and meaningful checks for recommendation behavior. A YouTube integration is not necessary to meet this definition.
