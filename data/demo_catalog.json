@@ -1,0 +1,110 @@
+[
+  {
+    "show_id": "demo_001",
+    "title": "Midnight Signal",
+    "genres": [
+      "mystery",
+      "science-fiction"
+    ],
+    "description": "A radio engineer investigates broadcasts that appear to predict events in a coastal town."
+  },
+  {
+    "show_id": "demo_002",
+    "title": "Shared Kitchen",
+    "genres": [
+      "comedy",
+      "slice-of-life"
+    ],
+    "description": "Three roommates attempt to run a neighborhood supper club while balancing their jobs."
+  },
+  {
+    "show_id": "demo_003",
+    "title": "The Last Map",
+    "genres": [
+      "adventure",
+      "fantasy"
+    ],
+    "description": "A young cartographer joins an expedition to find an island erased from every map."
+  },
+  {
+    "show_id": "demo_004",
+    "title": "Quiet Evidence",
+    "genres": [
+      "mystery",
+      "drama"
+    ],
+    "description": "A museum archivist uncovers a family secret through a collection of mislabelled letters."
+  },
+  {
+    "show_id": "demo_005",
+    "title": "Second Serve",
+    "genres": [
+      "sports",
+      "drama"
+    ],
+    "description": "A retired tennis player returns home to coach an underfunded community team."
+  },
+  {
+    "show_id": "demo_006",
+    "title": "Orbit Nine",
+    "genres": [
+      "science-fiction",
+      "drama"
+    ],
+    "description": "A small research crew navigates unexpected discoveries and personal conflicts on a remote space station."
+  },
+  {
+    "show_id": "demo_007",
+    "title": "City of Flavors",
+    "genres": [
+      "documentary",
+      "food"
+    ],
+    "description": "A documentary team explores the people and traditions behind neighborhood markets."
+  },
+  {
+    "show_id": "demo_008",
+    "title": "Office Hours",
+    "genres": [
+      "comedy",
+      "slice-of-life"
+    ],
+    "description": "A university help desk faces unusual requests while its student staff prepare for graduation."
+  },
+  {
+    "show_id": "demo_009",
+    "title": "Harbor Frequency",
+    "genres": [
+      "mystery",
+      "science-fiction"
+    ],
+    "description": "A coastal radio crew investigates a mysterious signal predicting events near an abandoned station."
+  },
+  {
+    "show_id": "demo_010",
+    "title": "Letters from the Coast",
+    "genres": [
+      "mystery",
+      "drama"
+    ],
+    "description": "An archivist investigates missing letters and family secrets in a coastal town."
+  },
+  {
+    "show_id": "demo_011",
+    "title": "Market Stories",
+    "genres": [
+      "documentary",
+      "food"
+    ],
+    "description": "Cooks explore neighborhood markets and food traditions through family recipes."
+  },
+  {
+    "show_id": "demo_012",
+    "title": "Far Station",
+    "genres": [
+      "science-fiction",
+      "drama"
+    ],
+    "description": "An engineer joins a research crew on a remote space station to investigate unexplained broadcasts."
+  }
+]
