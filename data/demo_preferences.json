@@ -1,0 +1,15 @@
+{
+  "favorite_genres": [
+    "mystery",
+    "science-fiction"
+  ],
+  "liked_show_ids": [
+    "demo_001"
+  ],
+  "disliked_show_ids": [
+    "demo_005"
+  ],
+  "watched_show_ids": [
+    "demo_001"
+  ]
+}
